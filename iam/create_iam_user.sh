@@ -71,3 +71,12 @@ aws iam delete-access-key --user-name user-can-create-other-user --access-key-id
 
 # 修改自己的密码（只能是IAM用户）
 aws iam change-password --old-password 'wGysGSLnek3sYny' --new-password 'YDZwF&E_8gfqht2w+'
+
+# 获取用户列表
+aws iam list-users
+
+# 获取组信息与组内用户列表（从组找用户）
+aws iam get-group --group-name Administrators
+
+# 列出用户所属的组列表（从用户找组）
+aws iam list-groups-for-user --user-name admin

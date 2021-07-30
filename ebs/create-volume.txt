@@ -1,0 +1,49 @@
+# 创建空白的gp2卷
+aws ec2 create-volume --volume-type gp2 --size 80 --availability-zone ap-northeast-1a --tag-specification '[{"ResourceType": "volume", "Tags": [{"Key": "Name", "Value": "gp2-in-a"}, {"Key": "size", "Value": "80GB"}]}]'
+{
+    "AvailabilityZone": "ap-northeast-1a",
+    "CreateTime": "2021-07-30T04:22:42+00:00",
+    "Encrypted": false,
+    "Size": 80,
+    "SnapshotId": "",
+    "State": "creating",
+    "VolumeId": "vol-02eb72a455b7550c0",
+    "Iops": 240,
+    "Tags": [
+        {
+            "Key": "Name",
+            "Value": "gp2-in-a"
+        },
+        {
+            "Key": "size",
+            "Value": "80GB"
+        }
+    ],
+    "VolumeType": "gp2",
+    "MultiAttachEnabled": false
+}
+# 从快照创建一个io1卷
+
+aws ec2 create-volume --generate-cli-skeleton > io1-from-snapshot.json
+cat io1-from-snapshot.json
+{
+    "AvailabilityZone": "ap-northeast-1c",
+    "Iops": 1000,
+    "Size": 50,
+    "SnapshotId": "snap-04d45a7c024b8ff61",
+    "VolumeType": "io1"
+}
+aws ec2 create-volume --cli-input-json file://io1-from-snapshot.json
+{
+    "AvailabilityZone": "ap-northeast-1c",
+    "CreateTime": "2021-07-30T04:45:06+00:00",
+    "Encrypted": false,
+    "Size": 50,
+    "SnapshotId": "snap-04d45a7c024b8ff61",
+    "State": "creating",
+    "VolumeId": "vol-0a95234c23b051b16",
+    "Iops": 1000,
+    "Tags": [],
+    "VolumeType": "io1",
+    "MultiAttachEnabled": false
+}
